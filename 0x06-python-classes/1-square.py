@@ -1,14 +1,21 @@
 #!/usr/bin/python3
 
-"""Define a class Square."""
+"""
+This script builds a class with a private attribute
+
+Attributes:
+    Square (class): a class with a private attribute called 'size'
+"""
 
 
 class Square:
-    """Represent a square."""
-
+    """
+    A square with a 'size' attribute
+    """
     def __init__(self, size):
-        """Initialize a new Square.
+        """
         Args:
-            size (int): The size of the new square.
+            self (Square): class object.
+            size (int): object dimension
         """
         self.__size = size

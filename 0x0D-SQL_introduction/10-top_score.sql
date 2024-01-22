@@ -1,4 +1,10 @@
--- List all records in 'second_table' of db 'hbtn_0c_0'
--- Results should display both score and name
+-- Lists all records of the table 'second_table' in 'hbtn_0c_0' database
+-- Results should display both the score and the name
 -- Records should be ordered by score (top first)
-SELECT score, name FROM second_table ORDER BY score DESC;
+-- The database name will be passed as an argument of the mysql command
+SELECT
+    score, name
+FROM
+    second_table
+ORDER BY
+    score DESC;

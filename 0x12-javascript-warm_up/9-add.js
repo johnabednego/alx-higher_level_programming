@@ -1,7 +1,10 @@
 #!/usr/bin/node
+
+const [a, b] = process.argv.slice(2);
+
 function add (a, b) {
-  const c = a + b;
-  console.log(c);
+  if (a === undefined || b === undefined) { return 'NaN'; }
+  return Number(a) + Number(b);
 }
 
-add(Number(process.argv[2]), Number(process.argv[3]));
+console.log(add(a, b));

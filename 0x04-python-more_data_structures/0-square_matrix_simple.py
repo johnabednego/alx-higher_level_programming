@@ -1,8 +1,13 @@
 #!/usr/bin/python3
 
+"""
+    /** square_matrix_simple - computes the square value of integers in matrix
+      * @matrix: 2 dimensional matrix
+      *
+      * Return: matrix
+      */
+"""
+
+
 def square_matrix_simple(matrix=[]):
-    new_matrix = [row[:] for row in matrix]
-    for idx, row in enumerate(new_matrix):
-        for idx2, col in enumerate(new_matrix):
-            new_matrix[idx][idx2] = row[idx2] ** 2
-    return new_matrix 
+    return list(map(lambda m: list(map(lambda y: y**2, m)), matrix))

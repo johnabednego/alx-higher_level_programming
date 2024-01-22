@@ -1,23 +1,20 @@
 #!/usr/bin/python3
 
 """
-Write a python file that contains the class definition of a State
-and an instance Base.
+A script that defines model via SQLAlchemy ORM
 """
 
-from sqlalchemy import Column, Integer, String, MetaData
+from typing import Any, Union
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
 
-mymetadata = MetaData()
-Base = declarative_base(metadata=mymetadata)
+Base: Any = declarative_base()
 
 
 class State(Base):
-
     """
-    Class with attributes of a state.
+    Defines a state model
     """
-
-    __tablename__ = 'states'
-    id = Column(Integer, unique=True, nullable=False, primary_key=True)
-    name = Column(String(128), nullable=False)
+    __tablename__: str = 'states'
+    id: Column = Column(Integer, primary_key=True, nullable=False)
+    name: Union[Column, str] = Column(String(128), nullable=False)

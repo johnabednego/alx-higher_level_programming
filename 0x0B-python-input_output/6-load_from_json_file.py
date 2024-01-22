@@ -1,9 +1,19 @@
-#!/usr/bin/python3
-"""load from json"""
-import json
+#!/usr/bin/Python3
+
+"""
+A module: Defines a function that crreates a python
+native object from a JSON file
+"""
+
+json = __import__('json')
 
 
 def load_from_json_file(filename):
-    """load from json to file"""
-    with open(filename, encoding="utf-8") as file_loaded:
-        return json.load(file+loaded)
+    """
+    Creates a python native object from a JSON file
+
+    Args:
+        filename (str): name of json file
+    """
+    with open(filename, mode='r', encoding='utf-8') as file:
+        return json.loads(file.read())

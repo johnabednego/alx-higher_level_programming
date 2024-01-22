@@ -1,17 +1,40 @@
 #!/usr/bin/python3
-"""  display all table in a state where name matched the arg """
+
+"""
+A script that takes in an argument and displays all values
+in the states table of hbtn_0e_0_usa where name matches the argument
+"""
+
 import MySQLdb
-import sys
+from MySQLdb.cursors import Cursor
 
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost", user=sys.argv[1],
-                         passwd=sys.argv[2], db=sys.argv[3], port=3306)
-    c = db.cursor()
-    c.execute("SELECT * FROM states WHERE name LIKE BINARY '{}'"
-                .format(sys.argv[4]))
-    rows = c.fetchall()
-    for row in rows:
-        print(row)
-    c.close()
-    db.close()
+def filterStatesByUserInput(params: list) -> None:
+    """
+    Filter states by user input
+    Args:
+        params (list): List of arguments given to script
+    """
+    query: str = """
+    SELECT * FROM `states`
+    WHERE BINARY `name` = '{}' ORDER BY `id` ASC""".format(params[3])
+    try:
+        conn: MySQLdb.Connection = MySQLdb.connect(
+            host="localhost", port=3306, user=params[0],
+            passwd=params[1], db=params[2], charset="utf8"
+        )
+        cursor: Cursor = conn.cursor()
+        cursor.execute(query)
+        records: list[tuple] = cursor.fetchall()
+        for row in records:
+            print(row)
+        cursor.close()
+        conn.close()
+    except MySQLdb.Error:
+        pass
+
+
+if __name__ == '__main__':
+    from sys import argv
+    [host, user, db, name] = argv[1:]
+    filterStatesByUserInput([host, user, db, name])

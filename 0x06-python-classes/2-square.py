@@ -1,18 +1,29 @@
 #!/usr/bin/python3
-# 2-square.py
-"""Square class defination."""
+
+"""
+A script that creates a class and validates its given attribute
+
+Attributes:
+    Square (class): with a valid attribute 'size'
+
+Todo:
+    * size must be an integer, otherwise raise a TypeError exception with
+    the message size must be an integer
+    * if size is less than 0, raise a ValueError exception with the message
+    size must be >= 0
+"""
 
 
 class Square:
-    """Square class body"""
-
+    """A class with a 'size' attribute"""
     def __init__(self, size=0):
-        """Square class contructor
-        Args:
-            size (int): The size of the new square.
         """
-        if not isinstance(size, int):
-            raise TypeError("size must be an integer")
-        elif size < 0:
-            raise ValueError("size must be >= 0")
+        Args:
+            self (Square): object
+            size (int): size of square
+        """
+        if type(size) is not int:
+            raise TypeError('size must be an integer')
+        if size < 0:
+            raise ValueError('size must be >= 0')
         self.__size = size

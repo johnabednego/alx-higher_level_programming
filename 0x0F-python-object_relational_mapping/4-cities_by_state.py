@@ -1,17 +1,39 @@
 #!/usr/bin/python3
-"""  lists all citie cities from database """
+
+"""
+A script that execute a query and prevent sql injection
+"""
+
 import MySQLdb
-import sys
+from MySQLdb.cursors import Cursor
 
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost", user=sys.argv[1],
-                         passwd=sys.argv[2], db=sys.argv[3], port=3306)
-    c = db.cursor()
-    c.execute("""SELECT cities.id, cities.name, states.name FROM
-                cities INNER JOIN states ON states.id=cities.state_id""")
-    rows = c.fetchall()
-    for row in rows:
-        print(row)
-    c.close()
-    db.close()
+def getCitiesByStates(params: list) -> None:
+    """
+    Filter states by user input and prevent sql injection
+    Args:
+        params (list): List of arguments given to script
+    """
+    query: str = """
+    SELECT cities.id, cities.name, states.name
+    FROM cities LEFT JOIN states ON cities.state_id = states.id"""
+    try:
+        conn: MySQLdb.Connection = MySQLdb.connect(
+            host="localhost", port=3306, user=params[0],
+            passwd=params[1], db=params[2], charset="utf8"
+        )
+        cursor: Cursor = conn.cursor()
+        cursor.execute(query)
+        records: list[tuple] = cursor.fetchall()
+        for row in records:
+            print(row)
+        cursor.close()
+        conn.close()
+    except MySQLdb.Error as e:
+        print(e)
+
+
+if __name__ == '__main__':
+    from sys import argv
+    [host, user, db] = argv[1:]
+    getCitiesByStates([host, user, db])

@@ -1,17 +1,40 @@
 #!/usr/bin/python3
-"""  lists all states from the database hbtn_0e_0_usa """
+
+"""
+A script that lists all states with a name
+starting with N (upper N) from the database hbtn_0e_0_usa
+"""
+
 import MySQLdb
-import sys
+from MySQLdb.cursors import Cursor
 
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost", user=sys.argv[1],
-                         passwd=sys.argv[2], db=sys.argv[3], port=3306)
-    c = db.cursor()
-    c.execute("""SELECT * FROM states WHERE name
-                LIKE BINARY 'N%' ORDER BY states.id""")
-    rows = c.fetchall()
-    for row in rows:
-        print(row)
-    c.close()
-    db.close()
+def filterStates(params: list) -> None:
+    """Filter states that start with 'N' and prints them in ascending order
+    Args:
+        params (list): List of arguments given to script
+    """
+    query: str = """
+    SELECT * FROM `states`
+    WHERE BINARY `name` LIKE 'N%' ORDER BY `id` ASC"""
+    try:
+        conn: MySQLdb.Connection = MySQLdb.connect(
+            host="localhost", port=3306, user=params[0],
+            passwd=params[1], db=params[2], charset="utf8"
+        )
+        cursor: Cursor = conn.cursor()
+        cursor.execute(query)
+        records: list[tuple] = cursor.fetchall()
+        for row in records:
+            if row[1][0] == 'N':
+                print(row)
+        cursor.close()
+        conn.close()
+    except MySQLdb.Error:
+        pass
+
+
+if __name__ == '__main__':
+    from sys import argv
+    [host, user, db] = argv[1:]
+    filterStates([host, user, db])

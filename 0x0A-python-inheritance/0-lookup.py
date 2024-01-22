@@ -1,7 +1,16 @@
 #!/usr/bin/python3
-"""Defines available attributes/methods of an object."""
+
+"""
+A module: Defines a lookup function
+"""
 
 
 def lookup(obj):
-    """Return a list of available attributes."""
-    return (dir(obj))
+    """
+    Args:
+        obj: instance of a class
+
+    Returns:
+        (list): a list of available obj attributes and methods
+    """
+    return dir(obj)

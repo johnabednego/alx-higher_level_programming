@@ -9,8 +9,12 @@ class Rectangle {
   }
 
   print () {
-    for (let i = 0; i < this.height; i++) {
-      console.log('X'.repeat(this.width));
+    for (let h = 0; h < this.height; h++) {
+      let shape = '';
+      for (let w = 0; w < this.width; w++) {
+        shape += 'X';
+      }
+      console.log(shape);
     }
   }
 
@@ -19,8 +23,8 @@ class Rectangle {
   }
 
   double () {
-    this.width = this.width * 2;
-    this.height = this.height * 2;
+    this.width *= 2;
+    this.height *= 2;
   }
 }
 

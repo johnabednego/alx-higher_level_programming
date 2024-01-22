@@ -1,28 +1,32 @@
 #!/usr/bin/python3
 
-""" Write a script that lists all State objects """
+"""
+A script that lists all State objects from the database hbtn_0e_6_usa
+"""
 
-if __name__ == "__main__":
+from sys import argv
+from typing import Any
+from model_state import Base, State
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-    from sqlalchemy import create_engine
-    from sqlalchemy.ext.declarative import declarative_base
-    from sqlalchemy.orm import sessionmaker
-    import sys
-    from model_state import Base, State
 
-    inp = sys.argv
-    if len(inp) < 4:
-        exit(1)
-    conn_str = 'mysql+mysqldb://{}:{}@localhost:3306/{}'
-    engine = create_engine(conn_str.format(inp[1], inp[2], inp[3]))
-    Session = sessionmaker(bind=engine)
-
+def createEngine(args: list) -> Any:
+    """Create a database engine
+    Return:
+        Session (class)
+    """
+    engine: Any = create_engine(
+        'mysql+mysqldb://{}:{}@localhost/{}'.format(args[0], args[1], args[2]),
+        pool_pre_ping=True
+    )
     Base.metadata.create_all(engine)
+    Session: sessionmaker = sessionmaker(bind=engine)
+    return Session()
 
-    session = Session()
 
-    output = session.query(State).order_by(State.id).all()
-    for state in output:
-        print("{}: {}".format(state.id, state.name))
-
-    session.close()
+if __name__ == '__main__':
+    session: Any = createEngine(argv[1:])
+    query: list = session.query(State).order_by(State.id)
+    for state in query:
+        print(f'{state.id}: {state.name}')

@@ -1,76 +1,101 @@
 #!/usr/bin/python3
-"""singly-linked defination"""
+
+"""
+A script that creates a Singly linked list
+"""
 
 
 class Node:
-    """Node class body."""
+    """
+    Attributes:
+        data (int): object data
+        next_node (Node): object of type Node
+    """
 
     def __init__(self, data, next_node=None):
-        """Node contructor.
+        """
         Args:
-            data (int): The data of the new Node.
-            next_node (Node): The next node of the new Node.
+            data (int): object data
+            next_node (Node): instance of Node
         """
         self.data = data
         self.next_node = next_node
 
     @property
     def data(self):
-        """Setter and Getter of a Node."""
-        return (self.__data)
-
-    @data.setter
-    def data(self, value):
-        if not isinstance(value, int):
-            raise TypeError("data must be an integer")
-        self.__data = value
+        """
+        Returns:
+            int: object data
+        """
+        return self.__data
 
     @property
     def next_node(self):
-        """Getter and Setter of a  Node."""
-        return (self.__next_node)
+        """
+        Returns:
+            Node: instance of Node
+        """
+        return self.__next_node
+
+    @data.setter
+    def data(self, value):
+        """
+        Args:
+            value (int): object data
+        """
+        if isinstance(value, int):
+            self.__data = value
+        else:
+            raise TypeError('data must be an integer')
 
     @next_node.setter
     def next_node(self, value):
-        if not isinstance(value, Node) and value is not None:
-            raise TypeError("next_node must be a Node object")
-        self.__next_node = value
+        """
+        Args:
+            value (int): instance of Node
+        """
+        if isinstance(value, Node) or value is None:
+            self.__next_node = value
+        else:
+            raise TypeError('next_node must be a Node object')
 
 
 class SinglyLinkedList:
-    """Singly-linked defination"""
-
+    """
+    Singly Linked List
+    """
     def __init__(self):
-        """SinglyLinkedList contructor."""
+        """
+        This method sets a private instance attribute, head
+        """
         self.__head = None
 
     def sorted_insert(self, value):
-        """Insert a new Node to the SinglyLinkedList.
-        The node is inserted into the list at the correct
-        ordered numerical position.
-        Args:
-            value (Node): The new Node to insert.
         """
-        new = Node(value)
-        if self.__head is None:
-            new.next_node = None
-            self.__head = new
-        elif self.__head.data > value:
-            new.next_node = self.__head
-            self.__head = new
+        This method adds a Node class to the linked list in a sorted order
+
+        Args:
+            value (int): data for new Node instance
+        """
+        currentNode = self.__head
+        previousNode = None
+        if currentNode is None or currentNode.data >= value:
+            self.__head = Node(value, currentNode)
         else:
-            tmp = self.__head
-            while (tmp.next_node is not None and
-                    tmp.next_node.data < value):
-                tmp = tmp.next_node
-            new.next_node = tmp.next_node
-            tmp.next_node = new
+            while currentNode is not None and value > currentNode.data:
+                previousNode = currentNode
+                currentNode = currentNode.next_node
+            previousNode.next_node = Node(value, currentNode)
 
     def __str__(self):
-        """Define the print() representation of a SinglyLinkedList."""
-        values = []
-        tmp = self.__head
-        while tmp is not None:
-            values.append(str(tmp.data))
-            tmp = tmp.next_node
-        return ('\n'.join(values))
+        """
+        String representation of class instance
+        """
+        string = []
+        currentNode = self.__head
+        while currentNode is not None:
+            string.append(str(currentNode.data))
+            currentNode = currentNode.next_node
+        if len(string) > 0:
+            return '\n'.join(string)
+        return ""

@@ -1,11 +1,16 @@
 #!/usr/bin/python3
 
+"""
+    /**
+      * search_replace - replaces all occurrences by another in a new list
+      * @my_list: List
+      * @search: element to replace
+      * @replace: new element
+      *
+      * Return: new List
+      */
+"""
+
 
 def search_replace(my_list, search, replace):
-    if my_list is None:
-        return
-    new_list = my_list[:]
-    for idx, c in enumerate(new_list):
-        if c == search:
-            new_list[idx] = replace
-    return new_list
+    return [replace if item == search else item for item in my_list]

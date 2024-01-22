@@ -1,12 +1,20 @@
-#!/usr/bin/python3
-"""Define to_json_string module """
+#!/usr/bin/Python3
 
-import json
+"""
+A module: Defines a function that converts native objects to json string
+"""
+
+json = __import__('json')
 
 
 def to_json_string(my_obj):
     """
-    returns the JSON representation of an object (string)
-    """
+    Converts python native objects to json string
 
+    Args:
+        my_obj (str): python string object
+
+    Returns:
+        string (json): JSON representation of my_obj
+    """
     return json.dumps(my_obj)

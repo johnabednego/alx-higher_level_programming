@@ -1,14 +1,16 @@
 #!/usr/bin/node
 
-const supSquare = require('./5-square');
+const ParentSquare = require('./5-square');
 
-class Square extends supSquare {
-  charPrint (c) {
-    if (c == null) {
-      c = 'X';
-    }
-    for (let i = 0; i < this.width; i++) {
-      console.log(c.repeat(this.width));
+class Square extends ParentSquare {
+  charPrint (c = undefined) {
+    const shape = c || 'X';
+    for (let h = 0; h < this.height; h++) {
+      let line = '';
+      for (let w = 0; w < this.width; w++) {
+        line += shape;
+      }
+      console.log(line);
     }
   }
 }

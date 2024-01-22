@@ -1,79 +1,56 @@
- ``7-base_geometry test file``
+==============================
+ How to Use 7-base_geometry.py
+==============================
 
+This library show usage of ``BaseGeometry``.
 
-Using ``integer_validator`` function
+Numbers
+=======
 
+``BaseGeometry`` defines geometry.
 
+::
 
-	>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
-	>>> bg = BaseGeometry()
-	>>> bg.integer_validator("my_int", 12)
-	>>> bg.integer_validator("width", 89)
-	>>> bg.integer_validator("name", "John")
-	Traceback (most recent call last):
-        ...
-	TypeError: name must be an integer
-	>>> bg.integer_validator("float_n", 5.23)
-	Traceback (most recent call last):
-        ...
-	TypeError: float_n must be an integer
-	>>> bg.integer_validator("float_n", float("inf"))
-	Traceback (most recent call last):
-        ...
-	TypeError: float_n must be an integer
-	>>> bg.integer_validator("float_n", float("-inf"))
-	Traceback (most recent call last):
-        ...
-	TypeError: float_n must be an integer
-	>>> bg.integer_validator("boolean", True)
-	Traceback (most recent call last):
-        ...
-	TypeError: boolean must be an integer
-	>>> bg.integer_validator("age", 0)
-	Traceback (most recent call last):
-        ...
-	ValueError: age must be greater than 0
-	>>> bg.integer_validator("distance", -4)
-	Traceback (most recent call last):
-        ...
-	ValueError: distance must be greater than 0
-	>>> bg.integer_validator("missing1")
-	Traceback (most recent call last):
-        ...
-	TypeError: integer_validator() missing 1 required positional argument: 'value'
-	>>> bg.integer_validator()
-	Traceback (most recent call last):
-        ...
-	TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
-	>>> bg.integer_validator("name", None)
-	Traceback (most recent call last):
-        ...
-	TypeError: name must be an integer
-	>>> bg.area()
-	Traceback (most recent call last):
-	...
-	Exception: area() is not implemented
-	>>> bg.area("aaa")
-	Traceback (most recent call last):
-	...
-	TypeError: area() takes 1 positional argument but 2 were given
-	>>> bg.integer_validator("name", 2+5j)
-	Traceback (most recent call last):
-        ...
-	TypeError: name must be an integer
-	>>> bg.integer_validator("name", [1, 2])
-	Traceback (most recent call last):
-        ...
-	TypeError: name must be an integer
-	>>> bg.integer_validator("name", (1, 2))
-	Traceback (most recent call last):
-        ...
-	TypeError: name must be an integer
-	>>> bg.integer_validator("name", {"a": 8})
-	Traceback (most recent call last):
-        ...
-	TypeError: name must be an integer
-	>>> bg.integer_validator("name", {2, 8})
-	Traceback (most recent call last):
-        ...
-	TypeError: name must be an integer
+    >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+    >>> pol = BaseGeometry()
+    >>> pol.integer_validator("my_int", 12)
+    >>> pol.integer_validator("width", 89)
+
+::
+
+    >>> pol.integer_validator("width", 89.01)
+    Traceback (most recent call last):
+      ...
+    TypeError: width must be an integer
+    >>> pol.integer_validator("name", "John")
+    Traceback (most recent call last):
+      ...
+    TypeError: name must be an integer
+    >>> pol.integer_validator("age", 0)
+    Traceback (most recent call last):
+      ...
+    ValueError: age must be greater than 0
+    >>> pol.integer_validator("distance", -4)
+    Traceback (most recent call last):
+      ...
+    ValueError: distance must be greater than 0
+    >>> pol.area()
+    Traceback (most recent call last):
+      ...
+    Exception: area() is not implemented
+    >>> pol.integer_validator(9, 4)
+    Traceback (most recent call last):
+      ...
+    Exception: 'name' must be a string
+    >>> pol.integer_validator("distance")
+    Traceback (most recent call last):
+      ...
+    TypeError: integer_validator() missing 1 required positional argument: 'value'
+    >>> pol.integer_validator()
+    Traceback (most recent call last):
+      ...
+    TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+    >>> pol.size()
+    Traceback (most recent call last):
+      ...
+    AttributeError: 'BaseGeometry' object has no attribute 'size'

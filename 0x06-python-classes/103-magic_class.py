@@ -1,23 +1,49 @@
-
-
 #!/usr/bin/python3
-"""Magic class from a given ByteCode."""
+"""
+Deciphering Python bytecodes
+
+Todos:
+    My magician game is on, ah gat this.
+"""
 import math
 
 
 class MagicClass:
-    """Initialization of the MagicClass."""
+    """
+    A Magic circle class
+
+    Attributes:
+        __init__ (function): class instance trigger
+        area (function): area of a circle
+        circumference (function): object circumference
+    """
+
     def __init__(self, radius=0):
-        """magic class constructor"""
-        self._MagicClass__radius = 0
+        """
+        Instantiation
+
+        Args:
+            self (MagicClass): instance of class
+            radius (int): instance attribute
+        """
         if type(radius) is not int and type(radius) is not float:
-            raise TypeError("radius must be a number")
-        self._MagicClass__radius = radius
+            raise TypeError('radius must be a number')
+        self.radius = radius
 
     def area(self):
-        """Calculation of the area."""
-        return self._MagicClass__radius ** 2 * math.pi
+        """
+        Calculates the area of the circle
+
+        Returns:
+            area (int): product of radius and radius
+        """
+        return (self.radius ** 2) * math.pi
 
     def circumference(self):
-        """Calculation of the circumference."""
-        return 2 * math.pi * self._MagicClass__radius
+        """
+        Calculates the circumference of the square
+
+        Returns:
+            circumference (int): length of the circle
+        """
+        return (2 * math.pi * self.radius)

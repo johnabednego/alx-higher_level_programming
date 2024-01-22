@@ -1,55 +1,40 @@
-#include <stdlib.h>
 #include "lists.h"
 
 /**
- * insert_node - Inserts a number into a sorted singly linked list.
+ * insert_node - insert node in an ordered list
+ * @head: head node
+ * @number: n data value of the new node
  *
- * @head: Double pointer to a singly linked list
- *
- * @number: Value of the new node.
- *
- * Return: The address of the new node, or NULL if it failed.
+ * Return: new node or NULL on failure
  */
-
 listint_t *insert_node(listint_t **head, int number)
 {
-	int flag = 0;
-	listint_t *new_node = NULL, *actual = NULL, *after = NULL;
+	listint_t *next, *new = malloc(sizeof(listint_t)), *top = *head;
 
-	if (head == NULL)
+	if (new == NULL)
 		return (NULL);
-	new_node = malloc(sizeof(listint_t));
-	if (!new_node)
-		return (NULL);
-	new_node->n = number, new_node->next = NULL;
-	if (*head == NULL)
+	new->n = number, new->next = NULL;
+
+	if (top == NULL || top->n >= new->n)
 	{
-		*head = new_node;
-		return (*head);
+		new->next = top;
+		*head = new;
 	}
-	actual = *head;
-	if (number <= actual->n)
+	else
 	{
-		new_node->next = actual, *head = new_node;
-		return (*head);
+		next = top->next;
+		while (next)
+		{
+			if (top->n <= new->n && new->n <= next->n)
+			{
+				top->next = new;
+				new->next = next;
+				return (new);
+			}
+			top = next, next = next->next;
+		}
+		top->next = new;
 	}
-	if (number > actual->n && !actual->next)
-	{
-		actual->next = new_node;
-		return (new_node);
-	}
-	after = actual->next;
-	while (actual)
-	{
-		if (!after)
-			actual->next = new_node, flag = 1;
-		else if (after->n == number)
-			actual->next = new_node, new_node->next = after, flag = 1;
-		else if (after->n > number && actual->n < number)
-			actual->next = new_node, new_node->next = after, flag = 1;
-		if (flag)
-			break;
-		after = after->next, actual = actual->next;
-	}
-	return (new_node);
+	return (new);
 }
+

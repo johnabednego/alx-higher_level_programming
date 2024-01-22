@@ -1,3 +1,3 @@
 #!/bin/bash
-# display all HTTP methods the server will accept using curl.
-curl -sI "$1" | grep "Allow" | cut -d " " -f 2-
+# A bash script that takes in a URL, sends a GET request to the URL, and displays the body of the response
+curl -s -I "$1" | grep -i "Allow" | sed -E 's/Allow:(\s)*//I'

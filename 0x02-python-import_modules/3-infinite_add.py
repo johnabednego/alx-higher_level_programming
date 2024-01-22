@@ -1,8 +1,14 @@
 #!/usr/bin/python3
-if __name__ == "__main__":
-    import sys
+from sys import argv
+
+
+def add(args):
     result = 0
-    for arg in sys.argv:
-        if arg != sys.argv[0]:
+    if len(args) > 0:
+        for arg in args:
             result += int(arg)
-    print(result)
+    return result
+
+
+if (__name__ == '__main__'):
+    print(add(argv[1:]))

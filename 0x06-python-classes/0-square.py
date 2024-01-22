@@ -1,7 +1,13 @@
 #!/usr/bin/python3
-"""Square class defination"""
+
+"""
+A script that creates an empty class
+
+Attributes:
+    Square (class): defines an empty class
+"""
 
 
 class Square:
-    """Square class body"""
+    """An empty class"""
     pass

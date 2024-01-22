@@ -1,7 +1,15 @@
 #!/usr/bin/python3
-""" LockedClass class Module"""
+"""
+A module that showcases locked class
+instance attribute
+"""
 
 
-class LockedClass():
-    """ variables declarations """
-    __slots__ = ('first_name')
+class LockedClass:
+    """
+    Prevent dynamic creation of attributes by new instances
+    """
+    __slots__ = ('first_name',)
+
+    def __init__(self):
+        pass

@@ -1,32 +1,35 @@
 #!/usr/bin/python3
 
-""" 10-model_state_my_get module """
+"""
+A script that prints the State object with
+the name passed as argument from the database hbtn_0e_6_usa
+"""
 
-if __name__ == "__main__":
+from sys import argv
+from typing import Any
+from model_state import Base, State
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-    from sqlalchemy import create_engine
-    from sqlalchemy.ext.declarative import declarative_base
-    from sqlalchemy.orm import sessionmaker
-    import sys
-    from model_state import Base, State
 
-    inp = sys.argv
-    if len(inp) < 5 or ";" in inp[4]:
-        exit(1)
-
-    conn_str = "mysql+mysqldb://{}:{}@localhost:3306/{}"
-    engine = create_engine(conn_str.format(inp[1], inp[2], inp[3]))
-    Session = sessionmaker(engine)
-
+def createEngine(args: list) -> Any:
+    """Create a database engine
+    Return:
+        Session (class)
+    """
+    engine: Any = create_engine(
+        'mysql+mysqldb://{}:{}@localhost/{}'.format(args[0], args[1], args[2]),
+        pool_pre_ping=True
+    )
     Base.metadata.create_all(engine)
+    Session: sessionmaker = sessionmaker(bind=engine)
+    return Session()
 
-    session = Session()
 
-    my_query = session.query(State).filter(State.name.like(inp[4])).all()
-
-    if len(my_query) == 0:
-        print("Not found")
+if __name__ == '__main__':
+    session: Any = createEngine(argv[1:])
+    query: Any = session.query(State).filter(State.name == argv[4]).all()
+    if query:
+        print(query[0].id)
     else:
-        print(my_query[0].id)
-
-    session.close()
+        print('Not found')

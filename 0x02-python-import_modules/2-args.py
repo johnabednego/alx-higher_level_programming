@@ -1,18 +1,18 @@
 #!/usr/bin/python3
-if __name__ == "__main__":
-    import sys
-    i = len(sys.argv) - 1
+from sys import argv
 
-    if i == 0:
-        print("{} arguments.".format(i))
-    elif i == 1:
-        print("{} argument:".format(i))
+
+def dynamic(arr):
+    arrLength = len(arr)
+    if arrLength == 0:
+        print("0 arguments.")
+    elif arrLength == 1:
+        print("1 argument:\n1:", arr[0])
     else:
-        print("{} arguments:".format(i))
+        print("{} arguments:".format(arrLength))
+        for (i, item) in enumerate(arr, start=1):
+            print(f"{i}: {item}")
 
-    if i >= 1:
-        i = 0
-        for arg in sys.argv:
-            if i != 0:
-                print("{}: {}".format(i, arg))
-            i += 1
+
+if (__name__ == '__main__'):
+    dynamic(argv[1:])
